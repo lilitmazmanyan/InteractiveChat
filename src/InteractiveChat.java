@@ -41,7 +41,6 @@ public class InteractiveChat {
         }
     }
 
-
     private static void printArr(ArrayList<String> arr) {
         for (String s : arr) {
             System.out.println(s);
