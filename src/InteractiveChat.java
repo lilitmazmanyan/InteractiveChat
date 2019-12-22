@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
 public class InteractiveChat {
     static int numberOfParticipants;
@@ -22,14 +20,15 @@ public class InteractiveChat {
     }
 
 
-    public static void chatPart() {
-
-        System.out.println("Please enter 1 if you want to send a messange and 2 to exit");
+    public static void chatPart(Member member) {
+        int index = arr.indexOf(member);
+        System.out.println("Member" + (index + 1) + "\nPlease enter 1 if you want to send a messange and 2 to exit");
         Scanner in = new Scanner(System.in);
         int decision = in.nextInt();
 
         System.out.println("Please enter your message");
         Scanner msg = new Scanner(System.in);
+
 
         switch (decision) {
             case 1:
@@ -56,13 +55,20 @@ public class InteractiveChat {
         }
     }
 
+    public static Member getRandom(ArrayList<Member> arr) {
+        Random mem = new Random();
+        int number = mem.nextInt((arr.size() - 1));
+        return arr.get(number);
+    }
+
     static int speakerIndex = 0;
 
     public static void main(String[] args) {
         initializeArr(numOfParticipants());
 
         while (!arr.isEmpty()) {
-            chatPart();
+            Member m1 = getRandom(arr);
+            chatPart(m1);
         }
         printArr(conv);
     }
