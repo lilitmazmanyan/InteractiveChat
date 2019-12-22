@@ -1,26 +1,11 @@
 import java.util.*;
 
 public class InteractiveChat {
-    static int numberOfParticipants;
-    static ArrayList<Member> arr = new ArrayList<>();
-    static ArrayList<String> conv = new ArrayList<>();
+    private static ArrayList<Member> arr = new ArrayList<>();
+    private static ArrayList<String> conv = new ArrayList<>();
+    private static  ArrayList<Member> activeMemb = new ArrayList<>();
 
-    public static int numOfParticipants() {
-        System.out.println("Please enter the number of members");
-        Scanner num = new Scanner(System.in);
-        numberOfParticipants = num.nextInt();
-        return numberOfParticipants;
-    }
-
-    public static ArrayList<Member> initializeArr(int numberOfParticipants) {
-        for (int i = 0; i < numberOfParticipants; i++) {
-            arr.add(new Member("Member" + (i + 1)));
-        }
-        return arr;
-    }
-
-
-    public static void chatPart(Member member) {
+    private static void chatPart(Member member) {
         int index = arr.indexOf(member);
         System.out.println("Member" + (index + 1) + "\nPlease enter 1 if you want to send a messange and 2 to exit");
         Scanner in = new Scanner(System.in);
@@ -30,6 +15,7 @@ public class InteractiveChat {
         Scanner msg = new Scanner(System.in);
 
 
+        int speakerIndex = 0;
         switch (decision) {
             case 1:
                 Date date = new Date();
@@ -48,21 +34,26 @@ public class InteractiveChat {
         }
     }
 
-
-    public static void printArr(ArrayList<String> arr) {
-        for (int i = 0; i < arr.size(); i++) {
-            System.out.println(arr.get(i));
+    private static int numOfParticipants() {
+        System.out.println("Please enter the number of members");
+        Scanner num = new Scanner(System.in);
+        return num.nextInt();
+    }
+    private static void initializeArr(int numberOfParticipants) {
+        for (int i = 0; i < numberOfParticipants; i++) {
+            arr.add(new Member("Member" + (i + 1)));
         }
     }
-
-    public static Member getRandom(ArrayList<Member> arr) {
+    private static void printArr(ArrayList<String> arr) {
+        for (String s : arr) {
+            System.out.println(s);
+        }
+    }
+    private static Member getRandom(ArrayList<Member> arr) {
         Random mem = new Random();
-        int number = mem.nextInt((arr.size() - 1));
+        int number = mem.nextInt(arr.size());
         return arr.get(number);
     }
-
-    static int speakerIndex = 0;
-
     public static void main(String[] args) {
         initializeArr(numOfParticipants());
 
