@@ -21,31 +21,32 @@ public class InteractiveChat {
         return arr;
     }
 
-    public static void chatPart() {
-        int speakerIndex = 0;
 
-        System.out.println("Please enter 1 if you want to send a messange and 0 to exit");
+    public static void chatPart() {
+
+        System.out.println("Please enter 1 if you want to send a messange and 2 to exit");
         Scanner in = new Scanner(System.in);
         int decision = in.nextInt();
 
+        System.out.println("Please enter your message");
         Scanner msg = new Scanner(System.in);
 
-        if (decision == 1) {
-            Date date = new Date();
+        switch (decision) {
+            case 1:
+                Date date = new Date();
+                String message = msg.nextLine();
+                String forAdd = date + " " + arr.get(speakerIndex).name + " " + message;
+                conv.add(forAdd);
+                break;
 
-            String message = msg.nextLine();
-            String forAdd = date + " " + arr.get(speakerIndex).name + " " + message;
-            conv.add(forAdd);
-            speakerIndex++;
+            case 2:
+                arr.remove(arr.get(speakerIndex));
+                System.out.println("You rejected");
+                break;
 
-        } else if (decision == 0) {
-            msg.close();
-            System.out.println("You rejected");
-            printArr(conv);
-        } else {
-            System.out.println("Not a valid number");
+            default:
+                System.out.println("Not a valid number");
         }
-
     }
 
 
@@ -55,13 +56,14 @@ public class InteractiveChat {
         }
     }
 
+    static int speakerIndex = 0;
+
     public static void main(String[] args) {
-//        numOfParticipants();
         initializeArr(numOfParticipants());
-        for (int i = 0; i < numberOfParticipants; i++) {
+
+        while (!arr.isEmpty()) {
             chatPart();
         }
         printArr(conv);
-
     }
 }
